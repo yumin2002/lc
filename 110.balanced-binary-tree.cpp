@@ -16,20 +16,41 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+// class Solution {
+// public:
+//     bool isBalanced(TreeNode* root) {
+//         if (!root) return;
+//         int l = maxDepth(root->left);
+//         int r = maxDepth(root->right);
+//         if ((abs(l-r)) > 1) return false;
+//         return isBalanced(root->left) && isBalanced(root->right);
+//     }
+
+//     int maxDepth(TreeNode* root) {
+//         if (!root) return 0;
+//         int l = maxDepth(root->left);
+//         int r = maxDepth(root->right);
+//         return max(l, r) + 1;
+//     }
+// };
+
+// only one recursive function:
 class Solution {
-public:
+public: 
     bool isBalanced(TreeNode* root) {
         if (!root) return;
-        int l = maxDepth(root->left);
-        int r = maxDepth(root->right);
-        if ((abs(l-r)) > 1) return false;
-        return isBalanced(root->left) && isBalanced(root->right);
+        bool balanced = true;
+        maxDepth(root, balanced);
+        return balanced;
     }
-
-    int maxDepth(TreeNode* root) {
+    int maxDepth(TreeNode* root, bool balanced) {
         if (!root) return 0;
-        int l = maxDepth(root->left);
-        int r = maxDepth(root->right);
+        l = maxDepth(root->left);
+        r = maxDepth(root->right);
+        if (abs(l-r) > 1) {
+            balanced = false;
+            return -1;
+        }
         return max(l, r) + 1;
     }
 };
