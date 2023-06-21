@@ -39,12 +39,13 @@ public:
         
         while (!Queue.empty()) {
             res.push_back({});
-            for (int i = Queue.size(); i >= 1; i--) {
+            int currSize = Queue.size();
+            for (int i = 0; i < currSize; i++) {
                 Node* curr = Queue.front();
                 Queue.pop();
                 res.back().push_back(curr->val);
-                for (int i = 0; i < curr->children.size(); i++) {
-                    Queue.push(curr->children[i]);
+                for (int j = 0; j < curr->children.size(); j++) {
+                    Queue.push(curr->children[j]);
                 }
             }
         }
@@ -59,3 +60,24 @@ public:
 //  5 6
 
 // queue1: 3 2 4
+
+
+// using preorder, insert into corresponding level index
+// Author: Huahua
+// Running time: 44 ms
+// class Solution {
+// public:
+//   vector<vector<int>> levelOrder(Node* root) {
+//     vector<vector<int>> ans;
+//     preorder(root, 0, ans);
+//     return ans;
+//   }
+// private:
+//   void preorder(Node* root, int d, vector<vector<int>>& ans) {
+//     if (root == nullptr) return;
+//     while (ans.size() <= d) ans.push_back({});
+//     ans[d].push_back(root->val);
+//     for (auto child : root->children)
+//       preorder(child, d + 1, ans);
+//   }
+// };
