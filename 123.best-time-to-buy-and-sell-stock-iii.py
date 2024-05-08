@@ -6,24 +6,48 @@
 
 # @lc code=start
 class Solution(object):
+    # 05/07 written by my own
+    def maxProfit(self, prices):
+        length = len(prices)
+        before = [0] * length
+        left_min = prices[0]
+        after = [0] * (length + 1)
+        right_max = prices[length-1]
+        for i in range(1,length):
+            before[i] = max(before[i-1], prices[i] - left_min)
+            left_min = min(left_min, prices[i])
+            
+            j = length - 1 - i
+            after[j] = max(after[j+1], right_max - prices[j])
+            right_max = max(right_max, prices[j])
+            
+        max_profit = 0
+        for i in range(0, length):
+            max_profit = max(max_profit, before[i] + after[i+1])
+        return max_profit
+    
     
     # 05/06 written by my own
-    def maxProfit(self, prices):
-        min_profit_left = prices[0]
-        max_progit_right = prices[-1]
-        profit_left = [0] * len(prices)
-        profit_right = [0] * (len(prices) + 1)
-        for l in range(1, len(prices)):
-            profit_left[l] = max(prices[l] - min_profit_left, profit_left[l-1])
-            min_profit_left = min(prices[l], min_profit_left)
+    # def maxProfit(self, prices):
+    #     min_profit_left = prices[0]
+    #     max_progit_right = prices[-1]
+    #     profit_left = [0] * len(prices)
+    #     profit_right = [0] * (len(prices) + 1)
+    #     for l in range(1, len(prices)):
+    #         profit_left[l] = max(prices[l] - min_profit_left, profit_left[l-1])
+    #         min_profit_left = min(prices[l], min_profit_left)
             
-            r = len(prices) - l - 1
-            profit_right[r] = max(max_progit_right - prices[r], profit_right[r+1])
-            max_progit_right = max(prices[r], max_progit_right)
-        global_max = 0
-        for i in range(0, len(prices)):
-            global_max = max(profit_left[i] + profit_right[i+1], global_max)
-        return global_max
+    #         r = len(prices) - l - 1
+    #         profit_right[r] = max(max_progit_right - prices[r], profit_right[r+1])
+    #         max_progit_right = max(prices[r], max_progit_right)
+    #     global_max = 0
+    #     for i in range(0, len(prices)):
+    #         global_max = max(profit_left[i] + profit_right[i+1], global_max)
+    #     return global_max
+
+
+
+
 
     # # DP solution:
     # # 1. construct 2 DP arrays:
@@ -89,4 +113,3 @@ class Solution(object):
     #     return currMax
         
 # @lc code=end
-

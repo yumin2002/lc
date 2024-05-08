@@ -6,6 +6,24 @@
 
 # @lc code=start
 class Solution(object):
+    
+    # 05/07 redo
+    # ptr is the rewrite ptr while count keeps track of whether the number of occurence of the current number exceeds the contraint of 2.
+    # whenever the count is exceeded, we skip writing it to the original array
+    # if the countr is within 2, we continue to rewrite
+    def removeDuplicates(self, nums):
+        count = 1
+        ptr = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[i-1]:
+                count = 1
+            else:
+                count += 1
+            if count <= 2:
+                nums[ptr] = nums[i]
+                ptr += 1
+        return ptr
+                
     # TODO: retry needed
     # # My solution: keep 2 temp var recording the previous values
     # # used because I wanted to prevent the previous two values of the current ptr from being overriten

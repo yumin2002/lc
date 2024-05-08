@@ -6,6 +6,9 @@
 
 # @lc code=start
 class Solution(object):
+    
+    
+    
     # TODO: need retry 
     # space complexity O(1)
     # cyclic rotate until rotated n times
